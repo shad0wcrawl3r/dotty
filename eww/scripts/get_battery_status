@@ -1,0 +1,8 @@
+#!/bin/bash
+status=$(cat /sys/class/power_supply/BAT1/status)
+
+if [[ $status == "Discharging" ]]; then
+	echo ""
+elif [[ $status == "Charging" ]]; then
+	echo ""
+fi

@@ -1,0 +1,145 @@
+(defwindow mainBar
+  :monitor 0
+  :windowtype "dock"
+  :stacking "overlay"
+  :geometry (geometry :anchor "top center" :x 0 :y 0 :width "80%" :height "10px" )
+  :exclusive  true
+  (bar)
+  )
+
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspaces)
+    (music)
+    (sidebar)
+    ))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "hyprctl dispatch workspace 1" 1)
+    (button :onclick "hyprctl dispatch workspace 2" 2)
+    (button :onclick "hyprctl dispatch workspace 3" 3)
+    (button :onclick "hyprctl dispatch workspace 4" 4)
+    (button :onclick "hyprctl dispatch workspace 5" 5)
+    (button :onclick "hyprctl dispatch workspace 6" 6)
+    (button :onclick "hyprctl dispatch workspace 7" 7)
+    (button :onclick "hyprctl dispatch workspace 8" 8)
+    (button :onclick "hyprctl dispatch workspace 9" 9)))
+
+
+
+(defvar battery_icons "")
+;(defvar battery_icon " ")
+(defvar volume_icon "奄")
+
+(defvar volume_up_icon "墳")
+(defvar volume_down_icon "婢")
+(defvar lock_icon "🔒")
+(defvar power_icon "襤")  ; This is the power icon
+(defvar restart_icon "痢")  ; This is the restart icon
+(defvar wifi_icon "")
+(defvar charging_icon "")
+
+(defwidget powermenu []
+	(eventbox :onhover "eww update powermenu=true" 		
+        :class "powerbar"
+        :halign "end"
+			  :onhoverlost "eww update powermenu=false"
+	(box  :orientation "h" 	  
+			  :space-evenly "false" 
+			  :spacing "2"
+	(revealer :transition "slideright" 
+			  :reveal powermenu
+			  :duration "550ms"
+    (box :orientation "h"
+        :halign "end"
+      :spacing "2"
+      :space-evenly "false"
+      (button :onclick "swaylock&" lock_icon)
+      (button :onclick "reboot" restart_icon)))
+  (button :onclick "poweroff" power_icon)
+   
+  )))
+(defvar powermenu false)
+
+(defwidget sidebar []
+  (box :class "sidebar"
+      :halign "end"
+      :space-evenly false
+    (volum)
+    (box :class "datetime" time)
+    (battery)
+    (powermenu)
+    )
+)
+(defwidget volum []
+	(eventbox :onhover "eww update volum=true" 		
+        :class "volume-bar"
+        :halign "end"
+			  :onhoverlost "eww update volum=false"
+	(box      :orientation "h" 	  
+			  :space-evenly "false" 
+			  :spacing "2"
+	(revealer :transition "slideright" 
+			  :reveal volum         
+			  :duration "550ms"
+	(scale 	  
+			  :value current-volume 
+			  :orientation "h"      
+			  :tooltip "Volume: ${current-volume}%" 
+			  :max 101 
+			  :min 0 
+			  :onchange "wpctl set-volume @DEFAULT_SINK@ {}%" ))
+(button   :onclick "wpctl set-mute @DEFAULT_SINK@ toggle" :class "volume-icon" volume_icon)
+;  (box :class "datetime" time)
+;  (powermenu)
+	)))
+(defvar volum false)
+
+(defwidget datetime []
+  (box time)
+)
+
+(defpoll time :interval "10s"
+  "date '+%Y,%b %d %H:%M'")
+
+(defpoll current-volume :interval "1s" :initial 0 
+  "wpctl get-volume @DEFAULT_SINK@ | cut -d' ' -f2|cut -d'.' -f2")
+
+(defwidget battery [] 
+  (eventbox :class "battery"
+    :onhover "eww update battery=true"
+    :onhoverlost "eww update battery=false"
+    (box :space-evenly false
+        :spacing "2"
+    battery_status
+    battery_icon
+	(revealer :transition "slideright" 
+			  :reveal battery
+			  :duration "550ms"
+    battery_perc
+    )
+  )
+ )
+)
+(defvar battery false)
+(defpoll battery_icon :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f1")
+(defpoll battery_perc :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f2")
+(defpoll battery_status :initial "" :interval "2s" "scripts/get_battery_status")
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "🎵${music}" : ""}))
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+
+

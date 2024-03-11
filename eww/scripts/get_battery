@@ -1,0 +1,9 @@
+#!/bin/bash
+battery="/sys/class/power_supply/BAT1"
+capacity=$(cat $battery/capacity)
+status=$(cat $battery/status)
+
+icons=(          )
+
+index=$((capacity / 10))
+echo "${icons[$index]} $capacity%"

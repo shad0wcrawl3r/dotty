@@ -1,0 +1,79 @@
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+//Global Styles
+.mainBar {
+  font-family: 'IosevkaTermNerdFontPropo';
+  background-color: rgb(33 33 33 / 10%);
+  color: #9ea0a2;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+// Styles on classes (see eww.yuck for more information)
+
+.volume-icon button:hover {
+  all:unset;
+  background-color: #D35D6E;
+}
+
+.volume-bar scale trough highlight {
+  all: unset;
+  background-color: #FFFFFF; 
+  color: #000000;
+  border-radius: 10px;
+}
+.datetime {
+  all:unset;
+  margin: 5px;
+}
+.powerbar{
+  all: unset;
+  margin: 4px;
+}
+.powerbar button{
+  all: unset;
+  margin: 5px;
+  margin-left: 5px;
+}
+.battery {
+}
+.volume-bar scale trough {
+  all: unset;
+  background-color: #000000;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.metric scale trough highlight {
+  all: unset;
+  background-color: #FFFFFF; 
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #000000;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.label-ram {
+  font-size: large;
+}
+.workspaces button:hover {
+  color: #D35D6E;
+}
+
+.workspaces button:active {
+  color: #ff0000;
+}
+
+.active-workspace {
+  border: 1px;
+}
