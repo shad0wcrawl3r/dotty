@@ -1,0 +1,27 @@
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 10.0
+
+[font.bold]
+family = "IosevkaNerdFontMono"
+
+[font.italic]
+family = "IosevkaNerdFontMono"
+
+[font.normal]
+family = "IosevkaNerdFontMono"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[window]
+opacity = 0.85
+
