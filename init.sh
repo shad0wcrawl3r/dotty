@@ -8,6 +8,19 @@ function backup {
 	fi
 }
 set -e
+OS_ID=$(cat /etc/os-release | grep "^ID=" | cut -d= -f2)
+OS_NAME=$(cat /etc/os-release | grep "^NAME=" | cut -d= -f2)
+
+if [[ $OS_NAME == "NixOS" && $OS_ID == "nixos" ]]; then
+	git submodule update --init nix-config
+	if [[ $EUID != 0 ]]; then
+		echo "Rewriting NixOS configuration requires root privilege. Cancel and rerun the script with sudo, else after a sleep period of 30s, the script will continue "
+		sleep 5
+	else
+		backup /etc/nixos
+		ln -sv $(pwd)/nix-config /etc/nixos
+	fi
+fi
 # Configure EWW if eww is preinstalled
 if [[ $(which eww) ]]; then
 	config_path=~/.config/eww
@@ -32,18 +45,4 @@ if [[ $(which nvim) ]]; then
 	rm -vrf ~/.local/state/nvim/
 	rm -vrf ~/.cache/nvim{,.bak}
 	ln -sv $(pwd)/neovim $config_path
-fi
-
-OS_ID=$(cat /etc/os-release | grep "^ID=" | cut -d= -f2)
-OS_NAME=$(cat /etc/os-release | grep "^NAME=" | cut -d= -f2)
-
-if [[ $OS_NAME == "NixOS" && $OS_ID == "nixos" ]]; then
-	git submodule update --init nix-config
-	if [[ $EUID != 0 ]]; then
-		echo "Rewriting NixOS configuration requires root privilege. Cancel and rerun the script with sudo, else after a sleep period of 30s, the script will continue "
-		sleep 30
-	else
-		backup /etc/nixos
-		ln -sv $(pwd)/nix-config /etc/nixos/
-	fi
 fi
