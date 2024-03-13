@@ -4,3 +4,6 @@
 [submodule "neovim"]
 	path = neovim
 	url = git@github.com:shad0wcrawl3r/neovim.git
+[submodule "nix-config"]
+	path = nix-config
+	url = git@github.com:shad0wcrawl3r/nix-config.git
