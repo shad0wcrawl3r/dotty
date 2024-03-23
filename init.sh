@@ -37,6 +37,14 @@ if [[ $(which alacritty) ]]; then
 	ln -sv $(pwd)/alacritty $config_path
 fi
 
+# Configure Rofi if installed
+if [[ $(which rofi) ]]; then
+	config_path=~/.config/rofi
+	backup $config_path
+	ln -sv $(pwd)/rofi $config_path
+fi
+
+#Configure neovim if installed
 if [[ $(which nvim) ]]; then
 	config_path=~/.config/nvim
 	git submodule update --init neovim
