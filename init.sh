@@ -11,18 +11,26 @@ set -e
 OS_ID=$(cat /etc/os-release | grep "^ID=" | cut -d= -f2)
 OS_NAME=$(cat /etc/os-release | grep "^NAME=" | cut -d= -f2)
 
-if [[ $OS_NAME == "NixOS" && $OS_ID == "nixos" ]]; then
-	git submodule update --init nix-config
-	if [[ $EUID != 0 ]]; then
-		echo "Rewriting NixOS configuration requires root privilege. Cancel and rerun the script with sudo, else after a sleep period of 10s, the script will continue "
-		sleep 10
-	else
-		backup /etc/nixos
-		ln -sv $(pwd)/nix-config /etc/nixos
-	fi
-	nixos-rebuild switch
-	exit 0
-fi
+## For Hyprland ecosystem
+function hypr() {
+	config_root=~/.config/hypr/
+	mkdir -p $config_root # Because Hyprland.conf will be created by home-manager in most cases
+	ln -sv $(pwd)/hypr/hyprland.ext.conf $config_root
+	ln -sv $(pwd)/hypr/hyprpaper.conf $config_root
+	ln -sv $(pwd)/hypr/hyprlock.conf $config_root
+}
+# if [[ $OS_NAME == "NixOS" && $OS_ID == "nixos" ]]; then
+# 	git submodule update --init nix-config
+# 	if [[ $EUID != 0 ]]; then
+# 		echo "Rewriting NixOS configuration requires root privilege. Cancel and rerun the script with sudo, else after a sleep period of 10s, the script will continue "
+# 		sleep 10
+# 	else
+# 		backup /etc/nixos
+# 		ln -sv $(pwd)/nix-config /etc/nixos
+# 	fi
+# 	nixos-rebuild switch
+# 	exit 0
+# fi
 
 if [[ $(which hyprctl) ]]; then
 	hypr
@@ -62,11 +70,3 @@ if [[ $(which nvim) ]]; then
 	ln -sv $(pwd)/neovim $config_path
 fi
 
-## For Hyprland ecosystem
-function hypr() {
-	config_root=~/.config/hypr/
-	mkdir -p $config_root # Because Hyprland.conf will be created by home-manager in most cases
-	ln -sv $(pwd)/hypr/hyprland.ext.conf $config_root
-	ln -sv $(pwd)/hypr/hyprpaper.conf $config_root
-	ln -sv $(pwd)/hypr/hyprlock.conf $config_root
-}
