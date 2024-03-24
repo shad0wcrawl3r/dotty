@@ -21,6 +21,11 @@ if [[ $OS_NAME == "NixOS" && $OS_ID == "nixos" ]]; then
 		ln -sv $(pwd)/nix-config /etc/nixos
 	fi
 fi
+
+if [[ $(which hyprctl) ]]; then
+	hypr
+fi
+
 # Configure EWW if eww is preinstalled
 if [[ $(which eww) ]]; then
 	config_path=~/.config/eww
@@ -54,3 +59,12 @@ if [[ $(which nvim) ]]; then
 	rm -vrf ~/.cache/nvim{,.bak}
 	ln -sv $(pwd)/neovim $config_path
 fi
+
+## For Hyprland ecosystem
+function hypr() {
+	config_root=~/.config/hypr/
+	mkdir -p $config_root # Because Hyprland.conf will be created by home-manager in most cases
+	ln -sv $(pwd)/hypr/hyprland.ext.conf $config_root
+	ln -sv $(pwd)/hypr/hyprpaper.conf $config_root
+	ln -sv $(pwd)/hypr/hyprlock.conf $config_root
+}
