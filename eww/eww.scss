@@ -11,6 +11,11 @@
   border-radius: 10px;
 }
 
+
+.powerMenu {
+  margin: 5px;
+}
+
 // Styles on classes (see eww.yuck for more information)
 
 .volume-icon button:hover {
@@ -27,17 +32,6 @@
 .datetime {
   all:unset;
   margin: 5px;
-}
-.powerbar{
-  all: unset;
-  margin: 4px;
-}
-.powerbar button{
-  all: unset;
-  margin: 5px;
-  margin-left: 5px;
-}
-.battery {
 }
 .volume-bar scale trough {
   all: unset;

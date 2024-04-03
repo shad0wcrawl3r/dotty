@@ -46,26 +46,12 @@
 (defvar charging_icon "")
 
 (defwidget powermenu []
-	(eventbox :onhover "eww update powermenu=true" 		
-        :class "powerbar"
-        :halign "end"
-			  :onhoverlost "eww update powermenu=false"
-	(box  :orientation "h" 	  
-			  :space-evenly "false" 
-			  :spacing "2"
-	(revealer :transition "slideright" 
-			  :reveal powermenu
-			  :duration "550ms"
-    (box :orientation "h"
-        :halign "end"
-      :spacing "2"
-      :space-evenly "false"
-      (button :onclick "swaylock&" lock_icon)
-      (button :onclick "reboot" restart_icon)))
-  (button :onclick "poweroff" power_icon)
-   
-  )))
-(defvar powermenu false)
+  (box :spacing 2
+       :class "powerMenu"
+    (button :onclick "$HOME/.local/bin/rofi-powermenu.sh" power_icon
+      )
+    )
+  )
 
 (defwidget sidebar []
   (box :class "sidebar"
@@ -112,25 +98,17 @@
   "wpctl get-volume @DEFAULT_SINK@ | cut -d' ' -f2|cut -d'.' -f2")
 
 (defwidget battery [] 
-  (eventbox :class "battery"
-    :onhover "eww update battery=true"
-    :onhoverlost "eww update battery=false"
-    (box :space-evenly false
-        :spacing "2"
-    battery_status
-    battery_icon
-	(revealer :transition "slideright" 
-			  :reveal battery
-			  :duration "550ms"
-    battery_perc
-    )
+  (box :space-evenly false
+       :spacing "2"
+  battery_status
+  battery_icon
+  battery_perc
   )
- )
 )
-(defvar battery false)
 (defpoll battery_icon :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f1")
 (defpoll battery_perc :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f2")
 (defpoll battery_status :initial "" :interval "2s" "scripts/get_battery_status")
+
 (defwidget music []
   (box :class "music"
        :orientation "h"
