@@ -1,2 +1,4 @@
 (include "./mainBar.yuck")
 
+(include "./dashboard.yuck")
+

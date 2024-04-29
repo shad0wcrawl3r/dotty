@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+#mem_raw=$(free -m | grep Mem | sed -E 's/Mem:\s+//' | sed -E 's/\s+/\,/g')
+
+function calculate() {
+	awk "BEGIN{print $*}"
+}
+
+memtotal=$(free -m | grep Mem: | awk '{print $2}')
+if [[ $1 =~ "total" ]]; then
+	echo $memtotal
+elif [[ $1 =~ "used" ]]; then
+	memused=$(free -m | grep Mem: | awk '{print $3}')
+	if [[ $2 == "p" ]]; then
+		calculate $memused/$memtotal*100
+	else
+		echo $memused
+	fi
+elif [[ $1 =~ "free" ]]; then
+	memfree=$(free -m | grep Mem: | awk '{print $4}')
+	if [[ $2 == "p" ]]; then
+		calculate $memfree/$memtotal*100
+	else
+		echo $memfree
+	fi
+elif [[ $1 =~ "avail" ]]; then
+	memavail=$(free -m | grep Mem: | awk '{print $7}')
+	if [[ $2 == "p" ]]; then
+		calculate $memavail/$memtotal*100
+	else
+		echo $memavail
+	fi
+else
+	echo 0
+fi

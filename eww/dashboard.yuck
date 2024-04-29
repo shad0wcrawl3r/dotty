@@ -1,0 +1,187 @@
+(defpoll mem_total :interval "15s" :initial 0 "scripts/get_memory total")
+(defpoll mem_used :interval "15s" :initial 0 "scripts/get_memory used p")
+(defpoll cpu_used :interval "5s" :initial 0 "scripts/get_cpu")
+(defpoll today :interval "30m" "date +'%A, %-d %B %Y'")
+
+
+(defpoll NAME  :interval "5m"  "hostname")
+(defpoll UNAME :interval "5m"  "whoami")
+
+;; TODO: FIX THIS
+(defvar battery-capacity 0)
+(defvar ram-usage 0)
+(defvar current-brightness 0)
+(defwindow dashboard
+  :monitor 0
+  :windowtype "dock"
+  :stacking "bg"
+  :geometry (geometry :anchor "center" :x 0 :y 0 :width "80%" :height "80%" )
+  :exclusive  true
+  (dashboard)
+  )
+
+
+
+
+(defwidget dashboard []
+  (box
+  
+ ; (resourceUsage)
+  (profile)
+  (systray)
+  )
+)
+
+
+;;  Profile Widgets
+(defwidget profile [] 
+    (box :orientation "v" 
+		 :space-evenly "false" 
+		 :class "profile" 
+    (box :orientation "h" 
+		 :space-evenly "false" 
+    (box :class "pfp"))
+    (box :orientation "v" :space-evenly "false"  
+    (box :class "pfptxt" :valign "center" {NAME})
+    (box :class "subpfptxt" :halign "center" {UNAME})
+		)
+	)
+)
+;; The Circular Meter like Thingy
+(defwidget radialmeter [value text ?class ?labelclass]
+    (circular-progress :value value
+        :class "radial ${class}"
+        :start-angle 0
+        :thickness 12
+        (label :text text
+            :class "radial-label ${labelclass}"
+            :limit-width 2
+            :show_truncated false
+            :wrap false
+            :angle 0.0
+        )
+    )
+)       
+
+
+(defwidget circular-volume[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-volume-box"
+				:tooltip "Current Volume: ${current-volume}%"
+(radialmeter 	:value current-volume
+            	:text ""
+            	:labelclass "volume-radial-label"
+            	:class "volume-radial")
+		)
+	)
+)
+(defwidget circular-bat[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-bat-box"
+				:tooltip "Battery Capacity: ${battery-capacity}%"
+(radialmeter 	:value battery-capacity
+            	:text ""
+            	:labelclass "bat-radial-label"
+            	:class "bat-radial")
+		)
+	)
+)
+
+(defwidget circular-ram[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-ram-box"
+				:tooltip "Ram Usage: ${ram-usage}%"
+(radialmeter 	:value ram-usage
+            	:text ""
+            	:labelclass "ram-radial-label"
+            	:class "ram-radial")
+		)
+	)
+)
+
+(defwidget circular-brightness[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-brightness-box"
+				:tooltip "Current Brightness: ${current-brightness}%"
+(radialmeter 	:value current-brightness
+            	:text ""
+            	:labelclass "brightness-radial-label"
+            	:class "brightness-radial")
+		)
+	)
+)
+
+(defwidget systray[]
+  (box :orientation 'v' 
+       :class "systray-circular"
+    (box :orientation 'h' :space-evenly "false"
+      (circular-ram)
+      (circular-volume)
+    )
+    (box :orientation 'h' :space-evenly "false"
+      (circular-bat)
+      (circular-brightness)
+    )
+    )
+  )
+
+
+; (defwidget resourceUsage []
+;   (box 
+;     :valign "center"
+;   (label 
+;     :text "${round(EWW_CPU['avg'],2)}"
+;     :wrap true
+;   )
+; 
+;   (resource
+;     :value mem_used
+;     :class "mem_circ"
+;     :label "Memory"
+;   ) 
+;   (resource
+;     :value cpu_used
+;     :class "cpu_circ"
+;     :label "CPU"
+;   )
+;   )
+; )
+; 
+; (defwidget resource [ value label ]
+;   (box
+;     :space-evenly "false"
+;     :spacing 2
+;     :orientation "h"
+;     (circular-progress
+;       :value value
+;       :thickness 4
+;       :vexpand true
+;       :hexpand true
+;     )
+;     label
+;   )
+; )

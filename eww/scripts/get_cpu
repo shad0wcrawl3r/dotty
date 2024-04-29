@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#mem_raw=$(free -m | grep Mem | sed -E 's/Mem:\s+//' | sed -E 's/\s+/\,/g')
+old_file="/tmp/.cpu_usage.eww"
+
+function calculate() {
+	awk "BEGIN{print $*}"
+}
+
+if [[ -f $old_file ]]; then
+	PREV_TOT=$(cat $old_file | head -n 1)
+	PREV_IDL=$(cat $old_file | tail -n 1)
+fi
+
+cpu=$(cat /proc/stat | grep '^cpu ' | awk '{print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11}')
+read -r user nice system idle iowait irq softirq steal guest guest_nice <<<"$cpu"
+
+# Thanks to https://github.com/adi1090x for this delta concept.
+total=$(calculate $user+$nice+$system+$idle)
+diff_idle=$(calculate $idle-$PREV_IDL)
+diff_total=$(calculate $total-$PREV_TOT)
+diff_usage=$(calculate "(1000*($diff_total-$diff_idle)/$diff_total+5)/10")
+
+echo $total >$old_file
+echo $idle >>$old_file
+
+echo $diff_usage

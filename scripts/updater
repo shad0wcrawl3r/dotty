@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -xe
+pushd /etc/nixos/
+nvim flake.nix home.nix configuration.nix
+alejandra . &>/dev/null
+git diff -U0 *.nix
+echo "Rebuilding Nix"
+sudo nixos-rebuild dry-activate &>/dev/null || (
+	echo "Something Failed..."
+	exit 1
+)
+sudo nixos-rebuild switch
+git add -p .
+git commit
+popd

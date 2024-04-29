@@ -1,7 +1,7 @@
 (defwindow mainBar
   :monitor 0
   :windowtype "dock"
-  :stacking "overlay"
+  :stacking "bg"
   :geometry (geometry :anchor "top center" :x 0 :y 0 :width "80%" :height "10px" )
   :exclusive  true
   (bar)

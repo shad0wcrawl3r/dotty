@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-battery="/sys/class/power_supply/BAT1"
+battery="/sys/class/power_supply/BAT*"
 capacity=$(cat $battery/capacity)
-status=$(cat $battery/status)
 
 icons=(          )
 
