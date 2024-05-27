@@ -15,21 +15,6 @@
     (sidebar)
     ))
 
-(defwidget workspaces []
-  (box :class "workspaces"
-       :orientation "h"
-       :space-evenly true
-       :halign "start"
-       :spacing 10
-    (button :onclick "hyprctl dispatch workspace 1" 1)
-    (button :onclick "hyprctl dispatch workspace 2" 2)
-    (button :onclick "hyprctl dispatch workspace 3" 3)
-    (button :onclick "hyprctl dispatch workspace 4" 4)
-    (button :onclick "hyprctl dispatch workspace 5" 5)
-    (button :onclick "hyprctl dispatch workspace 6" 6)
-    (button :onclick "hyprctl dispatch workspace 7" 7)
-    (button :onclick "hyprctl dispatch workspace 8" 8)
-    (button :onclick "hyprctl dispatch workspace 9" 9)))
 
 
 
@@ -116,8 +101,21 @@
        :halign "center"
     {music != "" ? "🎵${music}" : ""}))
 
+
 (deflisten music :initial ""
   "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 
 
+(deflisten active_workspace :initial "1" "./scripts/get-workspaces active")
+(deflisten all_workspaces :initial "[1]" "./scripts/get-workspaces all")
 
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (for wsp in all_workspaces
+    (button :onclick "hyprctl dispatch workspace ${wsp}" wsp)
+      )
+  ))

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+get_active_workspace() {
+
+	hyprctl monitors -j | jq '.[] | select(.focused) | .activeWorkspace.id'
+
+	# socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - |
+	#   stdbuf -o0 awk -F '>>|,' -e '/^workspace>>/ {print $2}' -e '/^focusedmon>>/ {print $3}'
+	#
+
+	socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | awk -F'>>|,' -e '/^(workspace|focusedmon)/ {print $NF}'
+}
+
+get_all_workspaces() {
+	socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
+		hyprctl workspaces -j | jq '.[] .id ' | tr '\n' ' ' | jq -cs '.'
+	done
+}
+
+__main() {
+	if [[ $# -eq 0 ]]; then
+		echo $#
+		echo "Please provide an action to perform"
+		exit 1
+	fi
+	if [[ $1 == 'active' ]]; then
+		get_active_workspace
+	elif [[ $1 == 'all' ]]; then
+		get_all_workspaces
+	fi
+
+}
+
+__main $@
