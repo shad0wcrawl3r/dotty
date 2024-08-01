@@ -8,7 +8,6 @@ elif [[ $status == "Charging" ]]; then
 fi
 
 if [[ $1 == 'new' ]]; then
-
 	udevadm monitor --udev --subsystem-match=power_supply --property | while read -r line; do
 		echo $line
 		# | grep -A 12 "AC0 (power_supply)"'

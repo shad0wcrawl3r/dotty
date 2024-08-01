@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+up() {
+  brightnessctl set "5%+" -q
+}
+
+down() {
+  brightnessctl set "5%-" -q
+}
+get() {
+  brightnessctl i | grep -oP '\(\K[^%\)]+'
+}
+
+$@

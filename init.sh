@@ -103,5 +103,6 @@ function main() {
 	fi
 
 }
-
-deploy_nix_config
+#
+main
+#deploy_nix_config

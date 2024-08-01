@@ -18,14 +18,15 @@
 
 
 
-(defvar battery_icons "")
+(defvar battery_icons "")
 ;(defvar battery_icon " ")
-(defvar volume_icon "奄")
+(defvar volume_icon "")
 
-(defvar volume_up_icon "墳")
-(defvar volume_down_icon "婢")
+(defvar volume_up_icon "")
+(defvar volume_down_icon "")
 (defvar lock_icon "🔒")
-(defvar power_icon "襤")  ; This is the power icon
+(defvar power_icon "")  ; This is the power icon
+
 (defvar restart_icon "痢")  ; This is the restart icon
 (defvar wifi_icon "")
 (defvar charging_icon "")
@@ -33,7 +34,7 @@
 (defwidget powermenu []
   (box :spacing 2
        :class "powerMenu"
-    (button :onclick "$HOME/.local/bin/rofi-powermenu.sh" power_icon
+    (button :onclick "rofi -modi p:'rofi-power-menu' -show" power_icon
       )
     )
   )
@@ -46,6 +47,7 @@
     (box :class "datetime" time)
     (battery)
     (powermenu)
+    (systray)
     )
 )
 (defwidget volum []
@@ -87,11 +89,10 @@
        :spacing "2"
   battery_status
   battery_icon
-  battery_perc
   )
 )
-(defpoll battery_icon :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f1")
-(defpoll battery_perc :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f2")
+(defpoll battery_icon :initial 0 :interval "10s" "scripts/get_battery ")
+; (defpoll battery_perc :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f2")
 (defpoll battery_status :initial "" :interval "2s" "scripts/get_battery_status")
 
 (defwidget music []
@@ -102,8 +103,8 @@
     {music != "" ? "🎵${music}" : ""}))
 
 
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+(defpoll music :initial "" :interval "10s"
+  "/home/ashwin/.local/bin/current_music.sh")
 
 
 (deflisten active_workspace :initial "1" "./scripts/get-workspaces active")

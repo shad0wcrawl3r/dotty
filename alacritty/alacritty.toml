@@ -25,4 +25,3 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [window]
 opacity = 0.85
-

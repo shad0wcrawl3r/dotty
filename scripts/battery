@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+acpi=$(command -v acpi)
+
+from_acpi() {
+  battery_state=$(acpi -V | grep 'Battery' | grep -v 'capacity')
+
+}
+
+from_proc() {
+  echo "UNIMPLEMENTED"
+}
+
+if [[ -n $acpi ]]; then
+  from_acpi
+else
+  from_proc
+fi
