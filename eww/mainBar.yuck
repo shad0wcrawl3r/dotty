@@ -86,12 +86,13 @@
 
 (defwidget battery [] 
   (box :space-evenly false
-       :spacing "2"
+       :spacing "4"
+       :class "battery"
   battery_status
   battery_icon
   )
 )
-(defpoll battery_icon :initial 0 :interval "10s" "scripts/get_battery ")
+(defpoll battery_icon :initial 0 :interval "10s" "scripts/get_battery")
 ; (defpoll battery_perc :initial 0 :interval "10s" "scripts/get_battery | cut -d' ' -f2")
 (defpoll battery_status :initial "" :interval "2s" "scripts/get_battery_status")
 

@@ -1,6 +1,19 @@
 * {
   all: unset; //Unsets everything so you can style everything from scratch
 }
+$background: #1A1B26;
+$background-alt: #16161E;
+$background-alt2: #1E202E;
+$foreground: #a9b1d6;
+$red: #F7768E;
+$yellow: #E0AF68;
+$orange: #FF9E64;
+$green: #9ECE6A;
+$blue: #7AA2F7;
+$blue2: #88AFFF;
+$magenta: #BB9AF7;
+$cyan: #73DACA;
+
 
 //Global Styles
 .mainBar {
@@ -12,7 +25,7 @@
 }
 
 .powerMenu {
-  margin: 5px;
+  margin: 8px;
 }
 .dashboard {
   background-color: rgb(33 33 33/ 90%);
@@ -37,7 +50,7 @@
 }
 .powerbar{
   all: unset;
-  margin: 4px;
+  margin: 6px;
 }
 .powerbar button{
   all: unset;
@@ -85,58 +98,5 @@ circular-progress {
 
 .active-workspace {
   border: 1px;
-}
-
-
-$background: #1A1B26;
-$background-alt: #16161E;
-$background-alt2: #1E202E;
-$foreground: #a9b1d6;
-$red: #F7768E;
-$yellow: #E0AF68;
-$orange: #FF9E64;
-$green: #9ECE6A;
-$blue: #7AA2F7;
-$blue2: #88AFFF;
-$magenta: #BB9AF7;
-$cyan: #73DACA;
-
-.systray-circular{
-	font-family: Iosevka Nerd Font;
-	font-size: 2em;
-}
-.radial-ram-box,
-.radial-bat-box,
-.radial-volume-box,
-.radial-brightness-box{
-	font-family: "Font Awesome 5 Pro";
-	background-color: $background;
-	padding: 1.5rem 2.3rem 1.5rem 2.3rem;
-	margin: .5rem;
-	border-radius: 2rem 0;
-}
-.brightness-radial,
-.volume-radial,
-.bat-radial,
-.ram-radial{
-	background-color: $background-alt2;
-}
-.brightness-radial-label,
-.volume-radial-label,
-.bat-radial-label,
-.ram-radial-label{
-	padding: 2.5rem;
-}
-.brightness-radial{
-	color: $yellow;
-}
-.volume-radial{
-	color: $magenta;
-}
-.bat-radial{
-	color: $green;
-}
-.ram-radial{
-	color: $blue;
 }
 

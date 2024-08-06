@@ -3,7 +3,7 @@ set -x
 battery="/sys/class/power_supply/BAT*"
 capacity=$(cat $battery/capacity)
 
-icons=(    )
+icons=(    )
 
 index=$((capacity / 20))
-echo "${icons[$index]} $capacity%"
+echo "${icons[$index]}  $capacity%"
