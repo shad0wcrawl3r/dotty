@@ -1,0 +1,219 @@
+{
+  "layer": "top",
+  "modules-left": [
+    "hyprland/workspaces",
+    "mpris"
+  ],
+  "modules-center": [
+    "clock",
+  ],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "bluetooth",
+    "network",
+    "tray",
+    "battery",
+  ],
+  "battery": {
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "max-length": 25
+  },
+  "bluetooth": {
+    "format": "",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
+  "clock": {
+    "interval": 60,
+    "tooltip": true,
+    "format": "{:%I:%M %p  %d %b, %Y}"
+    // "format": "{:%A, %b %d, %Y %H:%M}"
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "hyprland/workspaces": {
+    "format": "{name}: {icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "active": "",
+      "default": ""
+    },
+    "persistent-workspaces": {
+      "*": 5, // 5 workspaces by default on every monitor
+      "HDMI-A-1": 3 // but only three on HDMI-A-1
+    }
+  },
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "interval": 10,
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "⏸"
+    }
+    // "ignored-players": ["firefox"]
+  },
+  "network": {
+    "interface": "wl*",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  }
+  // "hyprland/workspaces": {
+  //   "format": "<sub>{icon}</sub>\n{windows}",
+  // "window-rewrite-default": "",
+  // "window-rewrite": {
+  //   "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+  //   "title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+  //   "foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+  //   "code": "󰨞",
+  // },
+  // }
+  // "modules-left": [
+  //   "custom/launcher",
+  //   "cpu",
+  //   "memory",
+  //   "custom/media",
+  //   "tray"
+  // ],
+  // "modules-center": [
+  //   "river/tags"
+  // ],
+  // "modules-right": [
+  //   "custom/wallpaper",
+  //   "backlight",
+  //   "pulseaudio",
+  //   "clock",
+  //   "battery",
+  //   "custom/power"
+  // ],
+  // "pulseaudio": {
+  //   "tooltip": false,
+  //   "scroll-step": 5,
+  //   "format": "{icon} {volume}%",
+  //   "format-muted": "{icon} {volume}%",
+  //   "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+  //   "format-icons": {
+  //     "default": [
+  //       "",
+  //       "",
+  //       ""
+  //     ]
+  //   }
+  // },
+  // "river/tags": {
+  //   "num-tags": 6
+  // },
+  // "network": {
+  //   "tooltip": false,
+  //   "format-wifi": "  {essid}",
+  //   "format-ethernet": ""
+  // },
+  // "backlight": {
+  //   "tooltip": false,
+  //   "format": " {}%",
+  //   "interval": 1,
+  //   "on-scroll-up": "light -A 5",
+  //   "on-scroll-down": "light -U 5"
+  // },
+  // "battery": {
+  //   "states": {
+  //     "good": 95,
+  //     "warning": 30,
+  //     "critical": 20
+  //   },
+  //   "format": "{icon}  {capacity}%",
+  //   "format-charging": " {capacity}%",
+  //   "format-plugged": " {capacity}%",
+  //   "format-alt": "{time} {icon}",
+  //   "format-icons": [
+  //     "",
+  //     "",
+  //     "",
+  //     "",
+  //     ""
+  //   ]
+  // },
+  // "tray": {
+  //   "icon-size": 18,
+  //   "spacing": 10
+  // },
+  // "clock": {
+  //   "format": "{: %I:%M %p   %d/%m/%Y}"
+  // },
+  // "cpu": {
+  //   "interval": 15,
+  //   "format": " {}%",
+  //   "max-length": 10
+  // },
+  // "memory": {
+  //   "interval": 30,
+  //   "format": " {}%",
+  //   "max-length": 10
+  // },
+  // "custom/media": {
+  //   "interval": 30,
+  //   "format": "{icon} {}",
+  //   "return-type": "json",
+  //   "max-length": 20,
+  //   "format-icons": {
+  //     "spotify": " ",
+  //     "default": " "
+  //   },
+  //   "escape": true,
+  //   "exec": "$HOME/.config/system_scripts/mediaplayer.py 2> /dev/null",
+  //   "on-click": "playerctl play-pause"
+  // },
+  // "custom/launcher": {
+  //   "format": " ",
+  //   "on-click": "rofi -show drun",
+  //   "on-click-right": "killall rofi"
+  // },
+  // "custom/power": {
+  //   "format": " ",
+  //   "on-click": "bash ~/.config/rofi/leave/leave.sh",
+  // },
+  // "custom/updates": {
+  //   "format": "{} Update(s)",
+  //   "exec": "checkupdates | wc -l",
+  //   "exec-if": "[[ $(checkupdates | wc -l) != 0 ]]",
+  //   "interval": 15,
+  //   "on-click": "alacritty -e paru -Syu && notify-send 'The system has been updated' "
+  // },
+  // "custom/wallpaper": {
+  //   "format": " ",
+  //   "on-click": "bash ~/.config/system_scripts/pkill_bc"
+  // }
+}
