@@ -14,6 +14,8 @@
   border: none;
   border-radius: 14px;
   font-size: 12px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   /*color: @workspaces;*/
 }
 window#waybar {
@@ -25,38 +27,41 @@ window#waybar {
   color: @workspaces;
 }
 
+window#waybar>* {
+  margin: 2px;
+}
 #workspaces{
   background: @box_bg;
   color: @workspaces;
   margin: 2px 2px; 
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
 }
 #workspaces label {
   color: @workspaces
 }
 #wireplumber {
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
   margin: 2px 2px; 
   background: @box_bg;
   color: @music;
 }
 #mpris{
 /*padding: 2px 2px 2px 10px;*/
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
   margin: 2px 2px; 
   background: @box_bg;
   color: @music;
 }
 #clock{
 /*padding: 2px 2px 2px 10px;*/
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
   margin: 2px 2px; 
   background: @box_bg;
   color: @datetime;
 }
 #tray{
 /*padding: 0 8px;*/
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
   margin: 2px 2px; 
   background: @box_bg;
   color: @tray;
@@ -83,13 +88,13 @@ padding: 2px 10px 2px 0px;
 }
 #bluetooth{
 /*padding: 0 8px;*/
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
   margin: 2px 2px; 
   background: @box_bg;
   color: @wifi;
 }
 #network{
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
 /*padding: 0 8px;*/
   margin: 2px 2px; 
   background: @box_bg;
@@ -97,7 +102,7 @@ padding: 2px 10px 2px 10px;
 }
 #battery{
 /*padding: 0 8px;*/
-padding: 2px 10px 2px 10px;
+padding: 0px 10px 0px 10px;
   margin: 2px 2px; 
   background: @box_bg;
   color: @battery;
